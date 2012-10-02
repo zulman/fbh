@@ -3,41 +3,23 @@
 <head>
   <title></title>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, 
-  maximum-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-
   <!-- styles -->
   <link rel="stylesheet" href="assets/css/style.css" type="text/css"/>
   <!-- styles -->
 
   <!-- java scripts -->
   <script src="assets/js/jquery-1.8.2.min.js"></script>
+  <script type="text/javascript" src="http://webplayer.unity3d.com/download_webplayer-3.x/3.0/uo/UnityObject.js"></script>
   <script src="assets/js/code.js"></script>
   <!-- java scripts -->
 </head>
 <body>
- <h1>Test</h1>
-
- <div id="user-info">Hello<br>
-  <a href="#" onclick="login();">Login</a><br>
-</div>
-
-
-<br>
-<a href="#" onclick="publishStory();">Publish feed story</a><br><br>
-<a href="#" onclick="sendRequest();">Send request</a><br><br>
-
-
-<a href="#" onclick="getUserFriends();">Get friends</a><br>
-<a href="#" onclick="test();">Test</a><br>
-<div id="user-friends"></div>
-<div id="test"></div>
-<div id="social-plugin">
-  <fb:like width="250"></fb:like>
-</div>
-<fb:comments href="http://localhost/gh/fbh/" num_posts="2" width="300"></fb:comments>
-
+  <div id="unityPlayer">
+    <div class="missing">
+      <a href="http://unity3d.com/webplayer/" title="Unity Web Player. Install now!">
+        <img alt="Unity Web Player. Install now!" src="http://webplayer.unity3d.com/installation/getunity.png" width="193" height="63" />
+      </a>
+    </div>
+  </div>
 </body>
 </html>
