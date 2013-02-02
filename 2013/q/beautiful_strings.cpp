@@ -1,32 +1,13 @@
 /* 
- * File:   main.cpp
+ * File:   beautiful_strings.cpp
  * Author: Oleg.Chumakov
  *
  * Created on January 26, 2013, 2:07 PM
  */
 
-#include <string>
-#include <vector>
-#include <map>
-#include <set>
-#include <queue>
-#include <stack>
-#include <cstdlib>
-#include <cstring>
-#include <cassert>
 #include <iostream>
-#include <sstream>
-#include <cstddef>
 #include <algorithm>
-#include <utility>
-#include <iterator>
-#include <numeric>
-#include <list>
-#include <complex>
-#include <cstdio>
-#include <climits>
-#include <fcntl.h>
-#include <unistd.h>
+#include <cstring>
 
 using namespace std;
 
@@ -70,14 +51,14 @@ int main(int argc, const char **argv) {
   redirect(argc, argv);
 
   int cases;
-  int size = 26;
+  const int size = 26;
+  string line;
   cin >> cases >> ws;
   for (int cas = 0; cas < cases; cas++) {
     int arr[size];
     for (int i = 0; i < size; i++)
       arr[i] = 0;
 
-    string line;
     getline(cin, line);
     for (int i = 0; i < SZ(line); i++) {
       char c = tolower(line[i]);
@@ -87,7 +68,7 @@ int main(int argc, const char **argv) {
     }
     std::sort(arr, arr + size);
     int result = 0;
-    for (int i = size - 1; i > 0; --i)
+    for (int i = size - 1; i > 0; i--)
       if (arr[i] > 0)
         result += arr[i]*(i + 1);
       else break;

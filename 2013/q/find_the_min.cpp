@@ -5,28 +5,13 @@
  * Created on January 27, 2013, 2:20 AM
  */
 
-#include <string>
+#include <iostream>
 #include <vector>
+#include <algorithm>
+#include <cstring>
 #include <map>
 #include <set>
 #include <queue>
-#include <stack>
-#include <cstdlib>
-#include <cstring>
-#include <cassert>
-#include <iostream>
-#include <sstream>
-#include <cstddef>
-#include <algorithm>
-#include <utility>
-#include <iterator>
-#include <numeric>
-#include <list>
-#include <complex>
-#include <cstdio>
-#include <climits>
-#include <fcntl.h>
-#include <unistd.h>
 
 using namespace std;
 
@@ -65,8 +50,13 @@ static void redirect(int argc, const char **argv) {
 }
 //The first line contains an integer T (T <= 20), the number of test cases.
 //This is followed by T test cases, consisting of 2 lines each.
-//The first line of each test case contains 2 space separated integers, n, k (1 <= k <= 105, k < n <= 109).
-//The second line of each test case contains 4 space separated integers a, b, c, r (0 <= a, b, c <= 109, 1 <= r <= 109).
+//The first line of each test case contains 2 space separated integers, 
+//n, k (1 <= k <= 10^5, k < n <= 10^9).
+//The second line of each test case contains 4 space separated integers 
+//a, b, c, r (0 <= a, b, c <= 10^9, 1 <= r <= 10^9).
+//Optimized using Mark's(winner qualification round) solution 
+//from https://www.facebook.com/hackercup/scoreboard?round=185564241586420.
+int M[200020];
 
 int main(int argc, const char **argv) {
   redirect(argc, argv);
@@ -77,30 +67,37 @@ int main(int argc, const char **argv) {
     uint N, K, A, B, C, R;
     cin >> N >> K >> A >> B >> C >> R;
 
-    uint m[N];
-    uint temp[N];
-    m[0] = A;
-    for (uint i = 1; i < K; i++) {
-      m[i] = (B * m[i - 1] + C) % R;
+    M[0] = A;
+    for (int i = 1; i < K; i++) {
+      M[i] = (B * M[i - 1] + C) % R;
     }
 
-    for (uint i = K; i < N; i++) {
-      memcpy(temp, m, sizeof (m));
-      uint startIdx = i - K;
-      sort(temp + startIdx, temp + i);
+    set<int> st;
+    for (int i = 0; i <= K; i++) st.insert(i);
+    for (int i = 0; i < K; i++) st.erase(M[i]);
 
-      //Not found min case
-      m[i] = temp[i - 1] + 1;
-      int last = -1;
-      for (uint j = startIdx; j <= i - 1; j++) {
-        if (temp[j] - last > 1) {
-          m[i] = last + 1;
-          break;
+    multiset<int> dupst;
+    for (int i = 0; i < K; i++) dupst.insert(M[i]);
+
+    for (int i = K; i <= 2 * K; i++) {
+      M[i] = *st.begin();
+      st.erase(st.begin());
+
+      if (i < 2 * K) {
+        dupst.erase(dupst.find(M[i - K]));
+        if (M[i - K] <= K && dupst.find(M[i - K]) == dupst.end()) {
+          st.insert(M[i - K]);
         }
-        last = temp[j];
       }
     }
-    printf("Case #%d: %d\n", cas + 1, m[N - 1]);
+    
+    int result = 0;
+    if (N <= 2 * K) {
+      res = M[N];
+    } else {
+      res = M[K + (N - 2 * K - 1) % (k + 1)];
+    }
+    printf("Case #%d: %d\N", cas + 1, result);
 
   }
   return 0;
